@@ -1,40 +1,66 @@
 import java.util.ArrayList;
 
 public abstract class echipa {
-    private Membru lider;
-    private ArrayList<Membru> membri = new ArrayList<Membru>();
+    protected Membru lider;
+    protected ArrayList<Membru> membri = new ArrayList<Membru>();
     private String nume;
-    private int nrmax;
+    private int MAX;
     private int nr;
 
-    public echipa (String n, int max){
-        nume =n;
-        nrmax = max;
+    public echipa(String name, int max) {
+        nume = name;
+        MAX = max;
     }
 
-    public boolean addMember(Membru member){
-if(nr >= nrmax)
-    return false;
-membri.add(member);
-return true;
-}
-
-public boolean setLeader(Membru LiderNou){
-        if(LiderNou.getExp() <5)
+    public boolean addMember(Membru member) {
+        if (nr >= MAX)
             return false;
-        lider=LiderNou;
+
+        membri.add(member);
         return true;
-}
-public Membru removeMember(Membru member){
-        if(membri.remove(member))
+    }
+
+    public boolean setLeader(Membru liderNou) {
+        if (liderNou.getExp() < 5)
+            return false;
+
+        lider = liderNou;
+        return true;
+    }
+
+    public Membru removeMember(Membru member) {
+        if (membri.remove(member))
             return member;
         return null;
+    }
+
+    public String toString() {
+        String aux = "";
+
+        for (Membru m : membri) {
+            aux = aux + " " + m.toString();
+        }
+        return "Lider echipa: " + lider.toString() + ".    Membri: " + aux;
+    }
+
+    public void setMax(int m) {
+        if (this.equals(lider)) {
+            MAX = m;
+        } else {
+            System.out.println("!!!!!!! Doar liderul are voie sa schimbe numarul maxim de membri !!!!!!!!");
+        }
+    }
+
+    public void setName(String n) {
+        if (this.equals(lider)) {
+            nume = n;
+        } else {
+            System.out.println("!!!!!!!!!! Doar liderul are voie sa schimbe numele echipei! !!!!!!!!!!");
+        }
+    }
+
+
 }
-public String toString()
-{
-   String aux = "";
-   for(Membru max:membri )
-       aux= aux+ max.toString();
-     return ("Lider echipa: " + lider.NP + " "+membri);
-}
-}
+
+
+
